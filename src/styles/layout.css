@@ -98,6 +98,10 @@
   transition: background-color 0.15s ease;
 }
 
+.tab-short {
+  display: none;
+}
+
 .tab:hover {
   background: rgba(220, 233, 223, 0.12);
 }
@@ -167,6 +171,25 @@
   padding: 0.2rem 0.5rem;
   border-radius: var(--radius-sm);
   white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .tab {
+    padding-inline: 0.75rem;
+    font-size: 0.88rem;
+  }
+
+  .tab-long {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .tab-short {
+    display: inline;
+  }
 }
 
 @media (max-width: 720px) {

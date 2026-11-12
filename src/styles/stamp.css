@@ -1,0 +1,68 @@
+.stamp {
+  flex: none;
+  transform: rotate(var(--tilt));
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.stamp svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.stamp-ink {
+  font-family: var(--font-ui);
+}
+
+.stamp-green .stamp-ink {
+  stroke: #174c3c;
+  fill: #174c3c;
+  opacity: 0.85;
+}
+
+.stamp-mid .stamp-ink {
+  stroke: #397b62;
+  fill: #397b62;
+  opacity: 0.85;
+}
+
+.stamp-seal .stamp-ink {
+  stroke: #8c2f39;
+  fill: #8c2f39;
+  opacity: 0.82;
+}
+
+/* Las figuras con fill="none" tienen que conservar el trazo sin relleno */
+.stamp-ink circle,
+.stamp-ink line {
+  fill: none;
+}
+
+.stamp-ink text {
+  stroke: none;
+}
+
+/* El golpe del sello: baja desde arriba, aplasta y queda */
+.stamp-animate {
+  animation: stamp-hit 0.55s var(--ease-out) both;
+  animation-delay: 0.25s;
+}
+
+@keyframes stamp-hit {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--tilt)) scale(2.2);
+  }
+  60% {
+    opacity: 1;
+    transform: rotate(var(--tilt)) scale(0.94);
+  }
+  80% {
+    transform: rotate(var(--tilt)) scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(var(--tilt)) scale(1);
+  }
+}

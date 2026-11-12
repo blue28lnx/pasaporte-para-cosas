@@ -5,8 +5,8 @@ import '../styles/layout.css'
 const LINKS = [
   { href: '#/', label: 'Inicio', match: (s) => s.length === 0 },
   { href: '#/pasaportes', label: 'Pasaportes', match: (s) => s[0] === 'pasaportes' },
-  { href: '#/registrar', label: 'Registrar objeto', match: (s) => s[0] === 'registrar' },
-  { href: '#/traslado', label: 'Solicitar traslado', match: (s) => s[0] === 'traslado' },
+  { href: '#/registrar', label: 'Registrar objeto', short: 'Registrar', match: (s) => s[0] === 'registrar' },
+  { href: '#/traslado', label: 'Solicitar traslado', short: 'Traslado', match: (s) => s[0] === 'traslado' },
 ]
 
 export default function Header({ segments }) {
@@ -35,7 +35,16 @@ export default function Header({ segments }) {
               className={`tab${active ? ' is-active' : ''}`}
               aria-current={active ? 'page' : undefined}
             >
-              {link.label}
+              {link.short ? (
+                <>
+                  <span className="tab-long">{link.label}</span>
+                  <span className="tab-short" aria-hidden="true">
+                    {link.short}
+                  </span>
+                </>
+              ) : (
+                link.label
+              )}
             </a>
           )
         })}

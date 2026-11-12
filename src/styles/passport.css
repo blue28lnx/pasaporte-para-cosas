@@ -1,0 +1,279 @@
+.passport {
+  position: relative;
+  overflow: hidden;
+  max-width: 820px;
+  padding: 1.5rem 1.75rem 0;
+  background:
+    linear-gradient(135deg, rgba(220, 233, 223, 0.65), rgba(245, 240, 229, 0.9) 45%, rgba(220, 233, 223, 0.6)),
+    var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  box-shadow: var(--shadow-doc);
+  color: var(--ink);
+  isolation: isolate;
+}
+
+/* Líneas de seguridad onduladas */
+.passport::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    repeating-radial-gradient(circle at 110% -10%, transparent 0 9px, rgba(57, 123, 98, 0.07) 9px 10px),
+    repeating-radial-gradient(circle at -10% 110%, transparent 0 7px, rgba(23, 76, 60, 0.05) 7px 8px);
+}
+
+.pp-guilloche {
+  position: absolute;
+  z-index: -1;
+  width: 120%;
+  height: 120%;
+  right: -45%;
+  top: -10%;
+}
+
+.pp-microtext {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 5.6rem;
+  font-family: var(--font-mrz);
+  font-size: 5px;
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+  overflow: hidden;
+  color: rgba(23, 76, 60, 0.45);
+  border-top: 0.5px solid rgba(23, 76, 60, 0.3);
+  border-bottom: 0.5px solid rgba(23, 76, 60, 0.3);
+}
+
+.pp-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1.4rem;
+}
+
+.pp-header-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pp-republic {
+  font-family: var(--font-doc);
+  font-style: italic;
+  color: var(--green-600);
+}
+
+.pp-title {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.pp-header-meta {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.pp-body {
+  position: relative;
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 1.5rem;
+  padding-top: 0.6rem;
+}
+
+.pp-photo {
+  aspect-ratio: 4 / 5;
+  display: grid;
+  place-items: center;
+  font-size: 5.2rem;
+  background:
+    repeating-linear-gradient(45deg, rgba(57, 123, 98, 0.08) 0 2px, transparent 2px 6px),
+    var(--white);
+  border: 1px solid var(--line-strong);
+  outline: 4px solid rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+}
+
+.pp-signature {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.pp-signature-ink {
+  font-family: var(--font-doc);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #1e3a8a;
+  transform: rotate(-4deg);
+  transform-origin: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 0.15rem;
+}
+
+.pp-data {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1.5rem;
+  align-content: start;
+}
+
+.pp-span-2 {
+  grid-column: span 2;
+}
+
+.pp-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pp-label {
+  font-size: 0.68rem;
+  color: var(--green-600);
+  line-height: 1.3;
+}
+
+.pp-label i {
+  opacity: 0.75;
+}
+
+.pp-value {
+  font-family: var(--font-doc);
+  font-size: 1.02rem;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.pp-name .pp-value {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--green-900);
+}
+
+.pp-number .pp-value {
+  font-size: 1.1rem;
+  color: var(--seal);
+}
+
+.pp-location .pp-value {
+  font-weight: 700;
+  color: var(--green-900);
+}
+
+.pp-status {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+}
+
+.pp-status.is-home {
+  color: var(--green-900);
+  background: var(--green-100);
+}
+
+.pp-status.is-abroad {
+  color: #7a5a12;
+  background: #f6ebcd;
+}
+
+.pp-ghost {
+  position: absolute;
+  right: 5%;
+  bottom: 0.25rem;
+  font-size: 3.6rem;
+  opacity: 0.12;
+  filter: grayscale(1);
+  pointer-events: none;
+}
+
+.pp-perforation {
+  position: absolute;
+  right: -1.1rem;
+  top: 0;
+  writing-mode: vertical-rl;
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: rgba(23, 76, 60, 0.35);
+}
+
+.pp-issue-stamp {
+  position: absolute;
+  right: 2.25rem;
+  top: 6.4rem;
+  opacity: 0.9;
+}
+
+.pp-mrz {
+  margin: 1.4rem -1.75rem 0;
+  padding: 0.8rem 1.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: clamp(0.62rem, 1.65vw, 0.98rem);
+  letter-spacing: 0.12em;
+  background: rgba(255, 255, 255, 0.72);
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .passport {
+    padding: 1.1rem 1.1rem 0;
+  }
+
+  .pp-header-meta {
+    display: none;
+  }
+
+  .pp-body {
+    grid-template-columns: 1fr;
+  }
+
+  .pp-photo-col {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 1rem;
+    align-items: end;
+  }
+
+  .pp-photo {
+    font-size: 3.6rem;
+  }
+
+  .pp-data {
+    gap: 0.6rem 1rem;
+  }
+
+  .pp-issue-stamp {
+    right: 0.75rem;
+    top: 5.5rem;
+    width: 92px !important;
+    height: 92px !important;
+  }
+
+  .pp-mrz {
+    margin-inline: -1.1rem;
+    padding-inline: 1.1rem;
+    letter-spacing: 0.04em;
+  }
+
+  .pp-perforation {
+    display: none;
+  }
+}
