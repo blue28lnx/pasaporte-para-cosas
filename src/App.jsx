@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import AuthorizationModal from './components/AuthorizationModal.jsx'
+import CertificateModal from './components/CertificateModal.jsx'
 import Dashboard from './views/Dashboard.jsx'
 import PassportsView from './views/PassportsView.jsx'
 import PassportDetail from './views/PassportDetail.jsx'
@@ -14,13 +15,21 @@ import { useHashRoute } from './lib/router.js'
 export default function App() {
   const registry = useRegistry()
   const { segments } = useHashRoute()
-  const [authorizedId, setAuthorizedId] = useState(null)
+  // Ventana abierta: { type: 'authorization' | 'certificate', movementId }
+  const [modal, setModal] = useState(null)
 
-  const closeAuthorization = useCallback(() => setAuthorizedId(null), [])
-  const handleAuthorized = useCallback((movement) => setAuthorizedId(movement.id), [])
+  const closeModal = useCallback(() => setModal(null), [])
+  const handleAuthorized = useCallback(
+    (movement) => setModal({ type: 'authorization', movementId: movement.id }),
+    [],
+  )
+  const showCertificate = useCallback(
+    (movement) => setModal({ type: 'certificate', movementId: movement.id }),
+    [],
+  )
 
-  const authorized = registry.movements.find((m) => m.id === authorizedId)
-  const authorizedObject = authorized && registry.objects.find((o) => o.id === authorized.objectId)
+  const modalMovement = modal && registry.movements.find((m) => m.id === modal.movementId)
+  const modalObject = modalMovement && registry.objects.find((o) => o.id === modalMovement.objectId)
 
   let view
   const [section, param, extra] = segments
@@ -28,7 +37,13 @@ export default function App() {
   else if (section === 'pasaportes' && !param) view = <PassportsView registry={registry} />
   else if (section === 'pasaportes')
     view = (
-      <PassportDetail key={param} registry={registry} objectId={param} justIssued={extra === 'emitido'} />
+      <PassportDetail
+        key={param}
+        registry={registry}
+        objectId={param}
+        justIssued={extra === 'emitido'}
+        onShowCertificate={showCertificate}
+      />
     )
   else if (section === 'registrar') view = <RegisterView registry={registry} />
   else if (section === 'traslado')
@@ -43,8 +58,16 @@ export default function App() {
       </main>
       <Footer onResetDemo={registry.resetDemo} />
 
-      {authorized && (
-        <AuthorizationModal movement={authorized} object={authorizedObject} onClose={closeAuthorization} />
+      {modalMovement && modal.type === 'authorization' && (
+        <AuthorizationModal
+          movement={modalMovement}
+          object={modalObject}
+          onClose={closeModal}
+          onShowCertificate={() => showCertificate(modalMovement)}
+        />
+      )}
+      {modalMovement && modal.type === 'certificate' && (
+        <CertificateModal movement={modalMovement} object={modalObject} onClose={closeModal} />
       )}
     </div>
   )

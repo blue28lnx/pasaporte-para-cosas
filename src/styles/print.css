@@ -42,9 +42,21 @@
     transform: rotate(var(--tilt)) !important;
   }
 
-  body.printing-document .modal-backdrop {
+  /* Lo que no contiene el documento a imprimir no ocupa lugar */
+  body.printing-document .app:not(:has(.is-printing)),
+  body.printing-document .modal-backdrop:not(:has(.is-printing)) {
+    display: none;
+  }
+
+  body.printing-document .modal-backdrop,
+  body.printing-document .modal-panel {
     position: static;
+    padding: 0;
+    border: none;
     background: none;
+    box-shadow: none;
     backdrop-filter: none;
+    animation: none;
+    overflow: visible;
   }
 }

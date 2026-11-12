@@ -6,7 +6,7 @@ import { navigate } from '../lib/router.js'
 import { printElement } from '../lib/print.js'
 import '../styles/detail.css'
 
-export default function PassportDetail({ registry, objectId, justIssued }) {
+export default function PassportDetail({ registry, objectId, justIssued, onShowCertificate }) {
   const object = registry.objects.find((o) => o.id === objectId)
   const passportRef = useRef(null)
   const [confirmDelete, setConfirmDelete] = useState(false)
@@ -63,6 +63,7 @@ export default function PassportDetail({ registry, objectId, justIssued }) {
       <MovementTimeline
         object={object}
         movements={registry.movements.filter((m) => m.objectId === object.id)}
+        onShowCertificate={onShowCertificate}
       />
 
       <div className="revoke">

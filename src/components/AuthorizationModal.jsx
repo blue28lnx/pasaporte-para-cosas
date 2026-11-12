@@ -3,7 +3,7 @@ import Stamp from './Stamp.jsx'
 import { formatDate, formatTime, stampTilt } from '../lib/format.js'
 
 // Pantalla de autorización que aparece al aprobar un traslado.
-export default function AuthorizationModal({ movement, object, onClose }) {
+export default function AuthorizationModal({ movement, object, onClose, onShowCertificate }) {
   const day = formatDate(movement.date.slice(0, 10))
 
   return (
@@ -45,6 +45,9 @@ export default function AuthorizationModal({ movement, object, onClose }) {
         </dl>
 
         <div className="authorization-actions">
+          <button type="button" className="btn btn-primary" onClick={onShowCertificate}>
+            Ver certificado oficial
+          </button>
           <a href={`#/pasaportes/${movement.objectId}`} className="btn" onClick={onClose}>
             Ver pasaporte
           </a>
