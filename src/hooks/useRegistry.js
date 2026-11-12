@@ -101,6 +101,7 @@ export function useRegistry() {
     movements: data.movements,
     recentMovements,
     stats,
+    nextObjectNumber: data.counters.objects + 1,
     registerObject,
     transferObject,
     deleteObject,
