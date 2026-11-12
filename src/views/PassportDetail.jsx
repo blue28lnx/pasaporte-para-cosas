@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import PassportDocument from '../components/PassportDocument.jsx'
+import MovementTimeline from '../components/MovementTimeline.jsx'
 import NotFound from './NotFound.jsx'
 import { navigate } from '../lib/router.js'
 import { printElement } from '../lib/print.js'
@@ -58,6 +59,11 @@ export default function PassportDetail({ registry, objectId, justIssued }) {
       </div>
 
       <PassportDocument ref={passportRef} object={object} />
+
+      <MovementTimeline
+        object={object}
+        movements={registry.movements.filter((m) => m.objectId === object.id)}
+      />
 
       <div className="revoke">
         {confirmDelete ? (
