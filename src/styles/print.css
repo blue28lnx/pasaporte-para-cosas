@@ -7,6 +7,7 @@
   html,
   body {
     background: #fff !important;
+    min-height: 0 !important;
   }
 
   * {
@@ -14,38 +15,36 @@
     print-color-adjust: exact;
   }
 
-  /* Se imprime solo el documento marcado con .is-printing */
-  body.printing-document * {
-    visibility: hidden;
+  /* Se imprime solo el documento marcado con .is-printing:
+     todo lo que no es el documento ni lo contiene desaparece del flujo */
+  body.printing-document *:not(.is-printing):not(.is-printing *):not(:has(.is-printing)) {
+    display: none !important;
   }
 
-  body.printing-document .is-printing,
-  body.printing-document .is-printing * {
-    visibility: visible;
+  body.printing-document .app {
+    min-height: 0;
+  }
+
+  body.printing-document .page {
+    width: 100%;
+    padding: 0;
+    margin: 0;
   }
 
   body.printing-document .is-printing {
-    position: absolute;
-    left: 0;
-    top: 0;
     width: 100%;
     max-width: none;
     margin: 0;
     box-shadow: none !important;
     animation: none !important;
     transform: none !important;
+    break-inside: avoid;
   }
 
   body.printing-document .is-printing .stamp {
     animation: none !important;
     opacity: 1 !important;
     transform: rotate(var(--tilt)) !important;
-  }
-
-  /* Lo que no contiene el documento a imprimir no ocupa lugar */
-  body.printing-document .app:not(:has(.is-printing)),
-  body.printing-document .modal-backdrop:not(:has(.is-printing)) {
-    display: none;
   }
 
   body.printing-document .modal-backdrop,
@@ -58,5 +57,30 @@
     backdrop-filter: none;
     animation: none;
     overflow: visible;
+  }
+
+  body.printing-document .modal-panel {
+    width: 100%;
+  }
+
+  /* El certificado entra completo en una hoja A4 apaisada */
+  body.printing-document .certificate .cert-frame {
+    padding: 1rem 2.5rem 0.75rem;
+  }
+
+  body.printing-document .cert-title {
+    margin-block: 0.6rem;
+  }
+
+  body.printing-document .cert-facts {
+    margin-top: 0.9rem;
+  }
+
+  body.printing-document .cert-footer {
+    margin-top: 0.6rem;
+  }
+
+  body.printing-document .cert-disclaimer {
+    margin-top: 0.5rem;
   }
 }
