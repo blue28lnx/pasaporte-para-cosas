@@ -1,0 +1,6 @@
+allowBuilds:
+  esbuild: true
+
+# Compatibilidad con pnpm 9/10
+onlyBuiltDependencies:
+  - esbuild
