@@ -1,14 +1,33 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { STATUS_ABROAD, STATUS_HOME } from '../lib/constants.js'
 import { caseId, passportId } from '../lib/format.js'
 import { createSeed } from '../lib/seed.js'
+import { loadRegistry, saveRegistry } from '../lib/storage.js'
 
 const statusFor = (location, origin) => (location === origin ? STATUS_HOME : STATUS_ABROAD)
 
 // Estado central del registro migratorio: objetos, movimientos y contadores.
 export function useRegistry() {
-  const [data, setData] = useState(createSeed)
+  const [data, setData] = useState(loadRegistry)
   const dataRef = useRef(data)
+
+  // Persistencia: cada cambio queda guardado en localStorage
+  useEffect(() => {
+    saveRegistry(data)
+  }, [data])
+
+  // Si otra pestaña modifica el registro, se sincroniza
+  useEffect(() => {
+    const onStorage = (e) => {
+      if (e.key && e.key.startsWith('pasaporte-para-cosas')) {
+        const next = loadRegistry()
+        dataRef.current = next
+        setData(next)
+      }
+    }
+    window.addEventListener('storage', onStorage)
+    return () => window.removeEventListener('storage', onStorage)
+  }, [])
 
   // Calcula el próximo estado de forma síncrona para poder devolver
   // el objeto o movimiento recién creado a quien llamó la acción.
