@@ -46,7 +46,7 @@
 /* El golpe del sello: baja desde arriba, aplasta y queda */
 .stamp-animate {
   animation: stamp-hit 0.55s var(--ease-out) both;
-  animation-delay: 0.25s;
+  animation-delay: var(--stamp-delay, 0.25s);
 }
 
 @keyframes stamp-hit {

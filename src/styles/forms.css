@@ -232,3 +232,58 @@
   font-family: var(--font-doc);
   color: rgba(23, 76, 60, 0.35);
 }
+
+/* ---------- Envío en trámite ---------- */
+
+.submit-btn {
+  min-width: 13rem;
+}
+
+.submit-btn.is-processing {
+  opacity: 1;
+  cursor: progress;
+}
+
+.submit-stamp {
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: submit-spin 0.7s linear infinite;
+}
+
+@keyframes submit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* El error sacude el casillero, como un sello rechazado */
+.field.has-error input,
+.field.has-error select,
+.field.has-error textarea {
+  animation: field-shake 0.35s ease;
+}
+
+@keyframes field-shake {
+  25% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+}
+
+.emoji-option.is-selected {
+  animation: emoji-pick 0.3s var(--ease-out);
+}
+
+@keyframes emoji-pick {
+  50% {
+    transform: scale(1.25);
+  }
+}

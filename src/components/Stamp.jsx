@@ -10,6 +10,7 @@ export default function Stamp({
   ink = 'green',
   size = 170,
   animate = false,
+  delay = 0.25,
   className = '',
 }) {
   const id = useId().replace(/:/g, '')
@@ -19,7 +20,7 @@ export default function Stamp({
   return (
     <div
       className={`stamp stamp-${ink}${animate ? ' stamp-animate' : ''} ${className}`}
-      style={{ '--tilt': `${tilt}deg`, width: size, height: size }}
+      style={{ '--tilt': `${tilt}deg`, '--stamp-delay': `${delay}s`, width: size, height: size }}
     >
       <svg viewBox="0 0 200 200" role="img" aria-label={[title, ...lines, footer].filter(Boolean).join('. ')}>
         <defs>

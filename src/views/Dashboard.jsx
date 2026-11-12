@@ -2,7 +2,18 @@ import { useState } from 'react'
 import WhereaboutsList from '../components/WhereaboutsList.jsx'
 import { searchObjects } from '../lib/search.js'
 import { relativeDay } from '../lib/format.js'
+import { useCountUp } from '../hooks/useMotion.js'
 import '../styles/dashboard.css'
+
+function Stat({ label, value }) {
+  const shown = useCountUp(value)
+  return (
+    <div>
+      <dt>{label}</dt>
+      <dd aria-label={String(value)}>{shown}</dd>
+    </div>
+  )
+}
 
 export default function Dashboard({ registry }) {
   const { objects, stats, recentMovements } = registry
@@ -53,18 +64,9 @@ export default function Dashboard({ registry }) {
           <span className="mono">Folio {String(stats.movements + 1).padStart(3, '0')}</span>
         </div>
         <dl className="ledger-stats">
-          <div>
-            <dt>Objetos registrados</dt>
-            <dd>{stats.objects}</dd>
-          </div>
-          <div>
-            <dt>Traslados realizados</dt>
-            <dd>{stats.movements}</dd>
-          </div>
-          <div>
-            <dt>Objetos en circulación</dt>
-            <dd>{stats.abroad}</dd>
-          </div>
+          <Stat label="Objetos registrados" value={stats.objects} />
+          <Stat label="Traslados realizados" value={stats.movements} />
+          <Stat label="Objetos en circulación" value={stats.abroad} />
         </dl>
 
         <h3 className="ledger-subtitle">Últimos movimientos</h3>
@@ -74,10 +76,10 @@ export default function Dashboard({ registry }) {
           </p>
         ) : (
           <ol className="ledger-entries">
-            {latest.map((m) => {
+            {latest.map((m, i) => {
               const object = byId[m.objectId]
               return (
-                <li key={m.id}>
+                <li key={m.id} style={{ '--i': i }}>
                   <a href={`#/pasaportes/${m.objectId}`} className="ledger-entry">
                     <span className="ledger-emoji" aria-hidden="true">
                       {object?.emoji ?? '📦'}

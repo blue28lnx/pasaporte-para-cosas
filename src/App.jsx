@@ -54,7 +54,9 @@ export default function App() {
     <div className="app">
       <Header segments={segments} />
       <main className="page" id="contenido">
-        {view}
+        <div className="view" key={section ?? 'inicio'}>
+          {view}
+        </div>
       </main>
       <Footer onResetDemo={registry.resetDemo} />
 

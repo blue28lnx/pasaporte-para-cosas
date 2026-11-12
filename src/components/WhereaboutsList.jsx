@@ -11,8 +11,8 @@ export default function WhereaboutsList({ objects, query }) {
 
   return (
     <ul className="whereabouts">
-      {objects.map((o) => (
-        <li key={o.id}>
+      {objects.map((o, i) => (
+        <li key={o.id} style={{ '--i': i }}>
           <a href={`#/pasaportes/${o.id}`} className="whereabouts-item">
             <span className="whereabouts-emoji" aria-hidden="true">
               {o.emoji}

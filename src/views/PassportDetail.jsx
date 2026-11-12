@@ -4,11 +4,13 @@ import MovementTimeline from '../components/MovementTimeline.jsx'
 import NotFound from './NotFound.jsx'
 import { navigate } from '../lib/router.js'
 import { printElement } from '../lib/print.js'
+import { useTilt } from '../hooks/useMotion.js'
 import '../styles/detail.css'
 
 export default function PassportDetail({ registry, objectId, justIssued, onShowCertificate }) {
   const object = registry.objects.find((o) => o.id === objectId)
   const passportRef = useRef(null)
+  const stageRef = useTilt(5)
   const [confirmDelete, setConfirmDelete] = useState(false)
 
   if (!object) {
@@ -58,7 +60,9 @@ export default function PassportDetail({ registry, objectId, justIssued, onShowC
         </div>
       </div>
 
-      <PassportDocument ref={passportRef} object={object} />
+      <div className="passport-stage" ref={stageRef}>
+        <PassportDocument ref={passportRef} object={object} freshlyIssued={justIssued} />
+      </div>
 
       <MovementTimeline
         object={object}

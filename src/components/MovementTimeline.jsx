@@ -1,5 +1,17 @@
 import Stamp from './Stamp.jsx'
 import { formatDate, formatDateTime, stampTilt } from '../lib/format.js'
+import { useInView } from '../hooks/useMotion.js'
+
+// Cada entrada aparece al entrar en pantalla y su sello cae en ese momento.
+function Entry({ stamp, children, className = '' }) {
+  const [ref, visible] = useInView({ threshold: 0.3 })
+  return (
+    <li ref={ref} className={`timeline-item ${className}${visible ? ' is-visible' : ''}`}>
+      <div className="timeline-stamp">{stamp(visible)}</div>
+      <div className="timeline-card">{children}</div>
+    </li>
+  )
+}
 
 const INKS = ['green', 'mid']
 
@@ -20,8 +32,9 @@ export default function MovementTimeline({ object, movements, onShowCertificate 
 
       <ol className="timeline">
         {ordered.map((m, index) => (
-          <li key={m.id} className="timeline-item">
-            <div className="timeline-stamp">
+          <Entry
+            key={m.id}
+            stamp={(visible) => (
               <Stamp
                 title="TRASLADO AUTORIZADO"
                 lines={[formatDate(m.date.slice(0, 10)), `A ${m.to.toUpperCase()}`]}
@@ -29,57 +42,64 @@ export default function MovementTimeline({ object, movements, onShowCertificate 
                 tilt={stampTilt(m.id)}
                 ink={INKS[index % INKS.length]}
                 size={96}
+                animate={visible}
+                delay={0.2}
               />
+            )}
+          >
+            <p className="timeline-route">
+              {m.from}{' '}
+              <span className="arrow" aria-label="hacia">
+                →
+              </span>{' '}
+              {m.to}
+            </p>
+            <div className="timeline-field">
+              <span>Fecha y hora</span>
+              <span>{formatDateTime(m.date)}</span>
             </div>
-            <div className="timeline-card">
-              <p className="timeline-route">
-                {m.from} <span className="arrow" aria-label="hacia">→</span> {m.to}
-              </p>
-              <div className="timeline-field">
-                <span>Fecha y hora</span>
-                <span>{formatDateTime(m.date)}</span>
-              </div>
-              <div className="timeline-field">
-                <span>Número de expediente</span>
-                <span className="mono">{m.id}</span>
-              </div>
-              <div className="timeline-field">
-                <span>Estado</span>
-                <span>Aprobado</span>
-              </div>
-              <div className="timeline-field timeline-reason">
-                <span>Motivo</span>
-                <span>“{m.reason}”</span>
-              </div>
-              {onShowCertificate && (
-                <div className="timeline-actions">
-                  <button type="button" className="btn" onClick={() => onShowCertificate(m)}>
-                    Ver certificado
-                  </button>
-                </div>
-              )}
+            <div className="timeline-field">
+              <span>Número de expediente</span>
+              <span className="mono">{m.id}</span>
             </div>
-          </li>
+            <div className="timeline-field">
+              <span>Estado</span>
+              <span>Aprobado</span>
+            </div>
+            <div className="timeline-field timeline-reason">
+              <span>Motivo</span>
+              <span>“{m.reason}”</span>
+            </div>
+            {onShowCertificate && (
+              <div className="timeline-actions">
+                <button type="button" className="btn" onClick={() => onShowCertificate(m)}>
+                  Ver certificado
+                </button>
+              </div>
+            )}
+          </Entry>
         ))}
 
-        <li className="timeline-item timeline-origin">
-          <div className="timeline-stamp">
+        <Entry
+          className="timeline-origin"
+          stamp={(visible) => (
             <Stamp
               title="PASAPORTE EMITIDO"
               lines={[formatDate(object.issuedAt), object.origin.toUpperCase()]}
               tilt={6}
               ink="mid"
               size={96}
+              animate={visible}
+              delay={0.2}
             />
+          )}
+        >
+          <p className="timeline-route">Emisión del pasaporte en {object.origin}</p>
+          <div className="timeline-field">
+            <span>Fecha de emisión</span>
+            <span>{formatDate(object.issuedAt)}</span>
           </div>
-          <div className="timeline-card">
-            <p className="timeline-route">Emisión del pasaporte en {object.origin}</p>
-            <div className="timeline-field">
-              <span>Fecha de emisión</span>
-              <span>{formatDate(object.issuedAt)}</span>
-            </div>
-          </div>
-        </li>
+        </Entry>
       </ol>
 
       {ordered.length === 0 && (

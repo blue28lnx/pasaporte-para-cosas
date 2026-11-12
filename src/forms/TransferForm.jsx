@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import Field from './Field.jsx'
+import SubmitButton from './SubmitButton.jsx'
+import { useProcessing } from './useProcessing.js'
 import RoomSelect, { resolveRoom } from './RoomSelect.jsx'
 import { REASON_SUGGESTIONS } from '../lib/constants.js'
 
@@ -28,6 +30,7 @@ export default function TransferForm({ objects, initialObjectId, onSubmit }) {
   const [reason, setReason] = useState('')
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [processing, runProcessing] = useProcessing()
 
   const object = objects.find((o) => o.id === objectId)
 
@@ -45,11 +48,14 @@ export default function TransferForm({ objects, initialObjectId, onSubmit }) {
       e.currentTarget.querySelector('[aria-invalid="true"]')?.focus()
       return
     }
-    onSubmit({ objectId, to: resolveRoom(destination), reason })
-    setDestination(emptyDestination)
-    setReason('')
-    setSubmitted(false)
-    setErrors({})
+    const request = { objectId, to: resolveRoom(destination), reason }
+    runProcessing(() => {
+      onSubmit(request)
+      setDestination(emptyDestination)
+      setReason('')
+      setSubmitted(false)
+      setErrors({})
+    })
   }
 
   return (
@@ -149,9 +155,7 @@ export default function TransferForm({ objects, initialObjectId, onSubmit }) {
           El objeto se compromete a respetar las costumbres del lugar de destino y a no esconderse
           debajo de ningún mueble.
         </p>
-        <button type="submit" className="btn btn-primary btn-lg">
-          Solicitar autorización
-        </button>
+        <SubmitButton processing={processing} label="Solicitar autorización" processingLabel="Evaluando solicitud…" />
       </div>
     </form>
   )

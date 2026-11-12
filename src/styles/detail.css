@@ -181,6 +181,35 @@
   grid-template-columns: 1fr;
 }
 
+/* Aparición al hacer scroll: la ficha se desliza y el sello cae encima */
+.timeline-item .timeline-card {
+  opacity: 0;
+  transform: translateX(16px);
+  transition:
+    opacity 0.5s var(--ease-out),
+    transform 0.5s var(--ease-out);
+}
+
+.timeline-item:not(.is-visible) .stamp {
+  opacity: 0;
+}
+
+.timeline-item.is-visible .timeline-card {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-item .timeline-card {
+    opacity: 1;
+    transform: none;
+  }
+
+  .timeline-item:not(.is-visible) .stamp {
+    opacity: 1;
+  }
+}
+
 @media (max-width: 640px) {
   .timeline::before {
     left: 31px;

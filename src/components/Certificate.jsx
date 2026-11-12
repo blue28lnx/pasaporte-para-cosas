@@ -96,6 +96,8 @@ const Certificate = forwardRef(function Certificate({ movement, object }, ref) {
               footer={movement.id}
               tilt={stampTilt(movement.id + 'cert', 10)}
               size={128}
+              animate
+              delay={0.85}
             />
           </div>
         </footer>

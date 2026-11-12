@@ -306,3 +306,57 @@
     font-size: 1rem;
   }
 }
+
+/* ---------- Movimiento ---------- */
+
+.whereabouts li,
+.ledger-entries li {
+  animation: row-in 0.4s var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 60ms + 0.1s);
+}
+
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+}
+
+/* La habitación encontrada aparece "resaltada con marcador" */
+.whereabouts-place strong {
+  background: linear-gradient(var(--green-100), var(--green-100)) no-repeat left 85% / 0% 40%;
+  animation: highlight 0.6s var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 0) * 60ms + 0.35s);
+}
+
+@keyframes highlight {
+  to {
+    background-size: 100% 40%;
+  }
+}
+
+.ledger-stats dd {
+  font-variant-numeric: tabular-nums;
+}
+
+.dash-hero h1 {
+  animation: title-in 0.8s var(--ease-out) backwards;
+}
+
+.dash-lead,
+.dash-search {
+  animation: title-in 0.8s var(--ease-out) backwards;
+  animation-delay: 0.12s;
+}
+
+.dash-actions {
+  animation: title-in 0.8s var(--ease-out) backwards;
+  animation-delay: 0.22s;
+}
+
+@keyframes title-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}

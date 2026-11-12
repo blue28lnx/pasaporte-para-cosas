@@ -11,6 +11,18 @@
   flex: 1;
 }
 
+/* Cambio de ventanilla: la vista nueva entra como una hoja que se apoya */
+.view {
+  animation: view-in 0.4s var(--ease-out) backwards;
+}
+
+@keyframes view-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
 /* ---------- Membrete ---------- */
 
 .site-header {
@@ -104,6 +116,17 @@
 
 .tab:hover {
   background: rgba(220, 233, 223, 0.12);
+}
+
+.tab {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s var(--ease-out);
+}
+
+.tab:not(.is-active):hover {
+  transform: translateY(-2px);
 }
 
 .tab.is-active {

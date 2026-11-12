@@ -18,7 +18,7 @@ function DataField({ es, en, children, className = '' }) {
 }
 
 // Página de datos del pasaporte, con guilloché, microtexto, firma, sello de emisión y MRZ.
-const PassportDocument = forwardRef(function PassportDocument({ object }, ref) {
+const PassportDocument = forwardRef(function PassportDocument({ object, freshlyIssued = false }, ref) {
   const [mrz1, mrz2] = buildMrz(object)
   const atHome = object.location === object.origin
 
@@ -96,7 +96,10 @@ const PassportDocument = forwardRef(function PassportDocument({ object }, ref) {
         ink="mid"
         size={118}
         tilt={-12}
+        animate={freshlyIssued}
+        delay={0.9}
       />
+      <span className="pp-holo" aria-hidden="true" />
 
       <div className="pp-mrz mono" aria-label="Zona de lectura mecánica">
         <span>{mrz1}</span>

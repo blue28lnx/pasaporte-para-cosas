@@ -53,17 +53,24 @@ export default function PassportsView({ registry }) {
         </div>
       ) : (
         <ul className="booklets">
-          {results.map((o) => (
-            <li key={o.id}>
+          {results.map((o, i) => (
+            <li key={o.id} style={{ '--i': i }}>
               <a href={`#/pasaportes/${o.id}`} className="booklet-link">
-                <div className="booklet">
-                  <Emblem size={34} tone="light" />
-                  <span className="booklet-title">Pasaporte</span>
-                  <span className="booklet-emoji" aria-hidden="true">
-                    {o.emoji}
-                  </span>
-                  <span className="booklet-name">{o.name}</span>
-                  <span className="booklet-number mono">{o.id}</span>
+                <div className="booklet-3d">
+                  <div className="booklet-page" aria-hidden="true">
+                    <span className="booklet-page-label">Visado vigente</span>
+                    <span className="booklet-page-room">{o.location}</span>
+                    <span className="booklet-page-emoji">{o.emoji}</span>
+                  </div>
+                  <div className="booklet">
+                    <Emblem size={34} tone="light" />
+                    <span className="booklet-title">Pasaporte</span>
+                    <span className="booklet-emoji" aria-hidden="true">
+                      {o.emoji}
+                    </span>
+                    <span className="booklet-name">{o.name}</span>
+                    <span className="booklet-number mono">{o.id}</span>
+                  </div>
                 </div>
                 <div className="booklet-location">
                   <span>Ubicación actual</span>

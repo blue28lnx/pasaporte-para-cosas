@@ -31,15 +31,75 @@
   gap: 2rem 1.5rem;
 }
 
+.booklets li {
+  animation: booklet-deal 0.5s var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@keyframes booklet-deal {
+  from {
+    opacity: 0;
+    transform: translateY(18px) rotate(-3deg);
+  }
+}
+
 .booklet-link {
   display: block;
   color: inherit;
   text-decoration: none;
 }
 
-.booklet {
+/* Libreta en 3D: la tapa gira sobre el lomo y deja ver la página interior */
+.booklet-3d {
   position: relative;
   aspect-ratio: 5 / 7;
+  perspective: 900px;
+}
+
+.booklet-page {
+  position: absolute;
+  inset: 4px 2px 4px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.75rem 0.7rem;
+  text-align: right;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 13px, rgba(23, 76, 60, 0.08) 13px 14px),
+    var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: 2px 8px 8px 2px;
+}
+
+.booklet-page-label {
+  font-size: 0.68rem;
+  color: var(--green-600);
+}
+
+.booklet-page-room {
+  font-family: var(--font-doc);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--green-900);
+  border: 2px solid var(--green-600);
+  border-radius: 999px;
+  padding: 0.1rem 0.55rem;
+  transform: rotate(-6deg);
+}
+
+.booklet-page-emoji {
+  font-size: 1.3rem;
+  opacity: 0.6;
+}
+
+.booklet {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,7 +113,7 @@
     inset 6px 0 0 rgba(0, 0, 0, 0.18),
     inset 7px 0 0 rgba(255, 255, 255, 0.06),
     0 10px 24px -14px rgba(23, 76, 60, 0.8);
-  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
 }
 
 /* Filete interior de la tapa */
@@ -68,11 +128,11 @@
 
 .booklet-link:hover .booklet,
 .booklet-link:focus-visible .booklet {
-  transform: translateY(-4px) rotate(-1deg);
+  transform: rotateY(-38deg);
   box-shadow:
     inset 6px 0 0 rgba(0, 0, 0, 0.18),
     inset 7px 0 0 rgba(255, 255, 255, 0.06),
-    0 18px 30px -14px rgba(23, 76, 60, 0.8);
+    14px 18px 30px -14px rgba(23, 76, 60, 0.8);
 }
 
 .booklet-title {
@@ -125,6 +185,21 @@
 .booklet-location em {
   font-size: var(--step--1);
   color: var(--green-600);
+}
+
+.booklet-location strong {
+  transition: color 0.3s ease;
+}
+
+.booklet-link:hover .booklet-location strong {
+  color: var(--green-600);
+}
+
+@media (hover: none) {
+  .booklet-link:hover .booklet,
+  .booklet-link:focus-visible .booklet {
+    transform: none;
+  }
 }
 
 @media (max-width: 520px) {

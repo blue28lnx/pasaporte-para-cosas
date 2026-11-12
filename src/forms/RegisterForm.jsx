@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import Field from './Field.jsx'
+import SubmitButton from './SubmitButton.jsx'
+import { useProcessing } from './useProcessing.js'
 import RoomSelect, { resolveRoom } from './RoomSelect.jsx'
 import { CATEGORIES, EMOJI_SUGGESTIONS } from '../lib/constants.js'
 import { todayISO } from '../lib/format.js'
@@ -51,6 +53,7 @@ export default function RegisterForm({ onSubmit, nextNumber }) {
   const [form, setForm] = useState(initialState)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [processing, runProcessing] = useProcessing()
 
   const update = (key, value) => {
     const next = { ...form, [key]: value }
@@ -70,14 +73,16 @@ export default function RegisterForm({ onSubmit, nextNumber }) {
     }
     const origin = resolveRoom(form.origin)
     const location = form.location.choice === SAME_AS_ORIGIN ? origin : resolveRoom(form.location)
-    onSubmit({
-      name: form.name,
-      category: form.category,
-      emoji: form.emoji.trim(),
-      origin,
-      location,
-      issuedAt: form.issuedAt,
-    })
+    runProcessing(() =>
+      onSubmit({
+        name: form.name,
+        category: form.category,
+        emoji: form.emoji.trim(),
+        origin,
+        location,
+        issuedAt: form.issuedAt,
+      }),
+    )
   }
 
   return (
@@ -220,9 +225,7 @@ export default function RegisterForm({ onSubmit, nextNumber }) {
           Declaro bajo juramento doméstico que los datos consignados son verdaderos y que el objeto no
           tiene antecedentes de pérdida intencional.
         </p>
-        <button type="submit" className="btn btn-primary btn-lg">
-          Emitir pasaporte
-        </button>
+        <SubmitButton processing={processing} label="Emitir pasaporte" processingLabel="Emitiendo pasaporte…" />
       </div>
     </form>
   )

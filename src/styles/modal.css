@@ -93,6 +93,7 @@
 
 .authorization-stamp-area {
   position: relative;
+  overflow: hidden;
   margin: 1.5rem 0 1rem;
   width: 100%;
   min-height: 230px;
@@ -144,6 +145,136 @@
   gap: 0.6rem;
   margin-top: 1.25rem;
   padding-right: 0;
+}
+
+/* ---------- Viaje del objeto + golpe del sello ---------- */
+
+.route-anim {
+  margin-top: 1.25rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.route-place {
+  font-family: var(--font-doc);
+  font-weight: 700;
+  color: var(--green-900);
+  padding: 0.15rem 0.6rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--paper);
+}
+
+.route-from {
+  animation: route-leave 0.4s ease 0.9s forwards;
+}
+
+.route-to {
+  animation: route-arrive 0.5s var(--ease-out) 1.05s forwards;
+}
+
+@keyframes route-leave {
+  to {
+    opacity: 0.45;
+  }
+}
+
+@keyframes route-arrive {
+  40% {
+    transform: scale(1.12);
+  }
+  to {
+    background: var(--green-900);
+    color: var(--cream);
+    border-color: var(--green-900);
+  }
+}
+
+.route-track {
+  position: relative;
+  height: 2.4rem;
+  border-bottom: 2px dotted var(--line-strong);
+  margin-bottom: 1.1rem;
+}
+
+.route-traveler {
+  position: absolute;
+  bottom: -0.55rem;
+  left: 0;
+  font-size: 1.6rem;
+  line-height: 1;
+  animation:
+    travel 1s cubic-bezier(0.45, 0, 0.25, 1) 0.2s both,
+    hop 0.25s ease-in-out 0.2s 4 alternate;
+}
+
+@keyframes travel {
+  from {
+    left: 0;
+  }
+  to {
+    left: calc(100% - 1.6rem);
+  }
+}
+
+@keyframes hop {
+  to {
+    translate: 0 -10px;
+  }
+}
+
+.authorization-stamp-area {
+  animation: desk-thud 0.35s ease-out 1.45s;
+}
+
+@keyframes desk-thud {
+  30% {
+    transform: translateY(3px) scale(0.995);
+  }
+  60% {
+    transform: translateY(-1px);
+  }
+}
+
+/* Onda de tinta al golpear el sello */
+.stamp-ripple {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 200px;
+  height: 200px;
+  margin: -100px 0 0 -100px;
+  border-radius: 50%;
+  border: 2px solid var(--green-600);
+  opacity: 0;
+  pointer-events: none;
+  animation: ripple 0.7s ease-out 1.45s;
+}
+
+@keyframes ripple {
+  from {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+.authorization-facts,
+.authorization-actions {
+  animation: facts-in 0.45s var(--ease-out) 1.7s backwards;
+}
+
+@keyframes facts-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 }
 
 @media (max-width: 520px) {

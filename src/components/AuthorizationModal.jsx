@@ -16,7 +16,16 @@ export default function AuthorizationModal({ movement, object, onClose, onShowCe
           {movement.to}.
         </p>
 
+        <div className="route-anim" aria-hidden="true">
+          <span className="route-place route-from">{movement.from}</span>
+          <span className="route-track">
+            <span className="route-traveler">{object?.emoji ?? '📦'}</span>
+          </span>
+          <span className="route-place route-to">{movement.to}</span>
+        </div>
+
         <div className="authorization-stamp-area">
+          <span className="stamp-ripple" aria-hidden="true" />
           <Stamp
             title="TRASLADO AUTORIZADO"
             lines={[day, `A ${movement.to.toUpperCase()}`]}
@@ -24,6 +33,7 @@ export default function AuthorizationModal({ movement, object, onClose, onShowCe
             tilt={stampTilt(movement.id)}
             size={200}
             animate
+            delay={1.15}
           />
         </div>
 

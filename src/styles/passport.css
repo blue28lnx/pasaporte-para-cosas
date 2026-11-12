@@ -1,5 +1,14 @@
+.passport-stage {
+  max-width: 820px;
+  perspective: 1400px;
+}
+
 .passport {
   position: relative;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out);
+  animation: passport-in 0.8s var(--ease-out) backwards;
+  will-change: transform;
   overflow: hidden;
   max-width: 820px;
   padding: 1.5rem 1.75rem 0;
@@ -275,5 +284,68 @@
 
   .pp-perforation {
     display: none;
+  }
+}
+
+/* ---------- Movimiento ---------- */
+
+/* El documento sale de la libreta y se acomoda sobre la mesa */
+@keyframes passport-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px) rotateX(14deg) scale(0.98);
+  }
+}
+
+.is-tilting .passport {
+  transition: transform 0.12s linear, box-shadow 0.3s ease;
+  box-shadow: 0 1px 0 rgba(23, 76, 60, 0.08), 0 30px 50px -26px rgba(23, 76, 60, 0.55);
+}
+
+/* Lámina holográfica de seguridad: brilla donde apunta el mouse */
+.pp-holo {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  mix-blend-mode: soft-light;
+  background:
+    radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.85), transparent 38%),
+    conic-gradient(
+      from 90deg at var(--mx, 50%) var(--my, 50%),
+      #f6c1d8,
+      #b9e3f6,
+      #c8f1cf,
+      #f5ecb4,
+      #e2c8f6,
+      #f6c1d8
+    );
+  transition: opacity 0.4s ease;
+}
+
+.is-tilting .pp-holo {
+  opacity: 0.75;
+}
+
+/* El guilloché gira muy despacio, como una marca de agua viva */
+.pp-guilloche {
+  animation: guilloche-spin 90s linear infinite;
+}
+
+@keyframes guilloche-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media print {
+  .pp-holo {
+    display: none;
+  }
+
+  .pp-guilloche {
+    animation: none;
   }
 }
