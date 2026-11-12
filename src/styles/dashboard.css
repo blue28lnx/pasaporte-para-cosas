@@ -1,0 +1,303 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+}
+
+.dash-hero h1 {
+  font-size: clamp(2rem, 4.6vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  max-width: 16ch;
+  text-wrap: balance;
+}
+
+.dash-lead {
+  margin-top: 1.1rem;
+  max-width: 52ch;
+  font-size: 1.075rem;
+  color: var(--ink-soft);
+}
+
+.dash-search {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.dash-search label {
+  font-family: var(--font-doc);
+  font-style: italic;
+  font-size: var(--step-1);
+  color: var(--green-900);
+}
+
+.dash-search input {
+  width: 100%;
+  min-height: 56px;
+  padding: 0.85rem 1rem;
+  font-size: 1.1rem;
+  background: var(--white);
+  border: 1px solid var(--green-900);
+  border-radius: var(--radius-sm);
+  box-shadow: 4px 4px 0 var(--green-100);
+}
+
+.dash-search input:focus-visible {
+  outline-offset: 2px;
+}
+
+.dash-results {
+  margin-top: 0.75rem;
+}
+
+.dash-actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn-lg {
+  min-height: 52px;
+  padding-inline: 1.5rem;
+  font-size: 1.02rem;
+}
+
+/* ---------- Resultados de búsqueda ---------- */
+
+.whereabouts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+}
+
+.whereabouts li + li {
+  border-top: 1px dashed var(--line);
+}
+
+.whereabouts-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.75rem 1rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.whereabouts-item:hover {
+  background: var(--paper);
+}
+
+.whereabouts-emoji {
+  font-size: 1.6rem;
+}
+
+.whereabouts-name {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+}
+
+.whereabouts-name .mono {
+  font-weight: 400;
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+.whereabouts-place {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.whereabouts-label {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+.whereabouts-place strong {
+  font-family: var(--font-doc);
+  font-size: var(--step-1);
+  color: var(--green-900);
+}
+
+.whereabouts-empty {
+  padding: 1rem;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--ink-soft);
+}
+
+/* ---------- Libro de registros ---------- */
+
+.ledger {
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  outline: 1px solid var(--line);
+  outline-offset: 4px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-doc);
+}
+
+.ledger-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  border-bottom: 2px solid var(--green-900);
+  padding-bottom: 0.6rem;
+}
+
+.ledger-head h2 {
+  font-size: var(--step-2);
+}
+
+.ledger-head .mono {
+  font-size: var(--step--1);
+  color: var(--green-600);
+}
+
+.ledger-stats {
+  margin: 0;
+}
+
+.ledger-stats > div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-block: 0.65rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.ledger-stats dt {
+  flex: none;
+  color: var(--ink-soft);
+}
+
+/* Línea de puntos como en un formulario impreso */
+.ledger-stats > div::after {
+  content: '';
+  order: 1;
+  flex: 1;
+  border-bottom: 1px dotted var(--line-strong);
+  transform: translateY(-0.3em);
+}
+
+.ledger-stats dd {
+  order: 2;
+  margin: 0;
+  font-family: var(--font-doc);
+  font-weight: 700;
+  font-size: var(--step-2);
+  color: var(--green-900);
+  min-width: 2ch;
+  text-align: right;
+}
+
+.ledger-subtitle {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: var(--step-1);
+}
+
+.ledger-empty {
+  color: var(--ink-soft);
+}
+
+.ledger-entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ledger-entries li + li {
+  border-top: 1px dashed var(--line);
+}
+
+.ledger-entry {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.65rem 0.25rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ledger-entry:hover .ledger-name {
+  text-decoration: underline;
+}
+
+.ledger-emoji {
+  font-size: 1.35rem;
+}
+
+.ledger-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ledger-name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ledger-route {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.ledger-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  text-align: right;
+}
+
+.ledger-meta .mono {
+  color: var(--green-600);
+}
+
+@media (max-width: 900px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ledger {
+    padding: 1.1rem;
+  }
+
+  .whereabouts-item,
+  .ledger-entry {
+    grid-template-columns: auto 1fr;
+  }
+
+  .whereabouts-place,
+  .ledger-meta {
+    grid-column: 2;
+    align-items: flex-start;
+    text-align: left;
+    flex-direction: row;
+    gap: 0.4rem;
+  }
+
+  .whereabouts-place strong {
+    font-size: 1rem;
+  }
+}
