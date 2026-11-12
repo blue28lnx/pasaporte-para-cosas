@@ -20,17 +20,6 @@
   white-space: nowrap;
 }
 
-.archive-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 2rem;
-  border: 1px dashed var(--line-strong);
-  border-radius: var(--radius-sm);
-  color: var(--ink-soft);
-}
-
 /* ---------- Libretas ---------- */
 
 .booklets {

@@ -1,5 +1,4 @@
 import { useId } from 'react'
-import { AGENCY } from '../lib/constants.js'
 import '../styles/stamp.css'
 
 // Sello migratorio circular. El texto exterior rodea el sello como en los sellos de goma reales.
@@ -35,9 +34,9 @@ export default function Stamp({
           <circle cx="100" cy="100" r="95" fill="none" strokeWidth="4" />
           <circle cx="100" cy="100" r="88" fill="none" strokeWidth="1.2" />
           <circle cx="100" cy="100" r="62" fill="none" strokeWidth="1.2" />
-          <text fontSize="11.5" letterSpacing="1.2" fontWeight="700" textAnchor="middle">
+          <text fontSize="12" letterSpacing="2" fontWeight="700" textAnchor="middle">
             <textPath href={`#top-${id}`} startOffset="50%">
-              {AGENCY.toUpperCase()}
+              MIGRACIONES OBJETUALES
             </textPath>
           </text>
           <text fontSize="11" letterSpacing="2.5" fontWeight="700" textAnchor="middle">
@@ -54,7 +53,14 @@ export default function Stamp({
             {second}
           </text>
           {lines.slice(0, 2).map((line, i) => (
-            <text key={i} x="100" y={132 + i * 14} fontSize="11" fontWeight="600" textAnchor="middle">
+            <text
+              key={i}
+              x="100"
+              y={133 + i * 14}
+              fontSize={Math.min(11, 150 / Math.max(line.length, 1))}
+              fontWeight="600"
+              textAnchor="middle"
+            >
               {line}
             </text>
           ))}

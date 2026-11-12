@@ -1,5 +1,3 @@
-import '../styles/passports.css'
-
 export default function NotFound({ title = 'Trámite inexistente', message }) {
   return (
     <div className="archive-empty">
