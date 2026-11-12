@@ -227,3 +227,8 @@
     width: 100%;
   }
 }
+
+.field .emoji-input::placeholder {
+  font-family: var(--font-doc);
+  color: rgba(23, 76, 60, 0.35);
+}

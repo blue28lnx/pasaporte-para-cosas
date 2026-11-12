@@ -281,6 +281,11 @@
 @media (max-width: 480px) {
   .ledger {
     padding: 1.1rem;
+    outline-offset: 3px;
+  }
+
+  .dash-actions .btn {
+    flex: 1 1 100%;
   }
 
   .whereabouts-item,

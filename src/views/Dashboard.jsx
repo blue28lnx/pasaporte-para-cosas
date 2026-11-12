@@ -25,7 +25,7 @@ export default function Dashboard({ registry }) {
           <input
             id="where-search"
             type="search"
-            placeholder="Nombre del objeto o número de pasaporte"
+            placeholder="Objeto o número de pasaporte"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             autoComplete="off"
@@ -62,7 +62,7 @@ export default function Dashboard({ registry }) {
             <dd>{stats.movements}</dd>
           </div>
           <div>
-            <dt>Fuera de su lugar de origen</dt>
+            <dt>Objetos en circulación</dt>
             <dd>{stats.abroad}</dd>
           </div>
         </dl>

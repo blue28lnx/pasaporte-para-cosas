@@ -127,7 +127,7 @@ export default function RegisterForm({ onSubmit, nextNumber }) {
                 type="text"
                 className="emoji-input"
                 maxLength={8}
-                placeholder="🙂"
+                placeholder="?"
                 value={form.emoji}
                 onChange={(e) => update('emoji', e.target.value)}
               />
